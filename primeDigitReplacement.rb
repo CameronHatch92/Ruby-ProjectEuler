@@ -41,6 +41,7 @@ def findSubsets arr
     [arr[0], arr[1]], [arr[0], arr[2]],[arr[0], arr[3]],[arr[1], arr[2]],[arr[1], arr[3]],[arr[2], arr[3]]
   ]
   end
+  return [arr];
 end
 
 def primeCount digit, arr
@@ -49,7 +50,9 @@ def primeCount digit, arr
   for i in 0..9
     iStr = i.to_s;
     for j in 0...arr.length
-      str[arr[j]]=iStr;
+      if (not i===0 or not arr[j]===0)
+        str[arr[j]]=iStr;
+      end
     end
     if isPrime(str.join('').to_i)
       primeCount += 1;
@@ -65,16 +68,15 @@ end
 def getPrime
   prime = 101;
   primeCount = 1;
-  while true
+  while prime<111109
     if isPrime(prime)
       obj = findDigits(prime)
       newObj = obj.transform_values{|v| findSubsets(v)};
       digits = newObj.keys;
       for i in 0...digits.length
         for j in 0...newObj[digits[i]].length
-          # puts "#{prime}, #{newObj[digits[i]][j]}"
           primeNum = primeCount prime, newObj[digits[i]][j]
-          if primeNum === 8
+          if primeNum >= 8
             puts "#{newObj[digits[i]][j]}"
             return prime
           end
@@ -90,5 +92,8 @@ def getPrime
 end
 
 puts "#{getPrime}"
+
+# puts "#{isPrime 111109}";
+
 
 
