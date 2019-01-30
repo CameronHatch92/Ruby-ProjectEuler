@@ -17,4 +17,16 @@ def partialFact first, last
   return product;
 end
 
-puts "#{partialFact 3, 5}"
+count = 0;
+for i in 23..100
+  for j in 1..i
+    min = [i-j,j].min;
+    max = [i-j,j].max;
+    combin = (partialFact(max+1,i))/factorial(min);
+    if combin>1000000
+      count+=1;
+    end
+  end
+end
+
+puts "#{count}"
